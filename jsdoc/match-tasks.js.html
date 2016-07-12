@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: match-tasks.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: match-tasks.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module match-tasks
+ * @author Toru Nagashima
+ * @copyright 2015 Toru Nagashima. All rights reserved.
+ * See LICENSE file in root directory for full license.
+ */
+"use strict"
+
+//------------------------------------------------------------------------------
+// Requirements
+//------------------------------------------------------------------------------
+
+const {Minimatch} = require("minimatch")
+
+//------------------------------------------------------------------------------
+// Helpers
+//------------------------------------------------------------------------------
+
+const COLON_OR_SLASH = /[:\/]/g
+const CONVERT_MAP = {":": "/", "/": ":"}
+
+/**
+ * Swaps ":" and "/", in order to use ":" as the separator in minimatch.
+ *
+ * @param {string} s - A text to swap.
+ * @returns {string} The text which was swapped.
+ */
+function swapColonAndSlash(s) {
+    return s.replace(COLON_OR_SLASH, (matched) => CONVERT_MAP[matched])
+}
+
+/**
+ * Creates a filter from user-specified pattern text.
+ *
+ * The task name is the part until the first space.
+ * The rest part is the arguments for this task.
+ *
+ * @param {string} pattern - A pattern to create filter.
+ * @returns {{match: function, task: string, args: string}} The filter object of the pattern.
+ */
+function createFilter(pattern) {
+    const trimmed = pattern.trim()
+    const spacePos = trimmed.indexOf(" ")
+    const task = spacePos &lt; 0 ? trimmed : trimmed.slice(0, spacePos)
+    const args = spacePos &lt; 0 ? "" : trimmed.slice(spacePos)
+    const matcher = new Minimatch(swapColonAndSlash(task))
+    const match = matcher.match.bind(matcher)
+
+    return {match, task, args}
+}
+
+/**
+ * The set to remove overlapped task.
+ */
+class TaskSet {
+    /**
+     * Creates a instance.
+     */
+    constructor() {
+        this.result = []
+        this.sourceMap = Object.create(null)
+    }
+
+    /**
+     * Adds a command (a pattern) into this set if it's not overlapped.
+     * "Overlapped" is meaning that the command was added from a different source.
+     *
+     * @param {string} command - A pattern text to add.
+     * @param {string} source - A task name to check.
+     * @returns {void}
+     */
+    add(command, source) {
+        const sourceList = this.sourceMap[command] || (this.sourceMap[command] = [])
+        if (sourceList.length === 0 || sourceList.indexOf(source) !== -1) {
+            this.result.push(command)
+        }
+        sourceList.push(source)
+    }
+}
+
+//------------------------------------------------------------------------------
+// Public Interface
+//------------------------------------------------------------------------------
+
+/**
+ * Enumerates tasks which matches with given patterns.
+ *
+ * @param {string[]} taskList - A list of actual task names.
+ * @param {string[]} patterns - Pattern texts to match.
+ * @returns {string[]} Tasks which matches with the patterns.
+ * @private
+ */
+module.exports = function matchTasks(taskList, patterns) {
+    const filters = patterns.map(createFilter)
+    const candidates = taskList.map(swapColonAndSlash)
+    const taskSet = new TaskSet()
+    const unknownSet = Object.create(null)
+
+    // Take tasks while keep the order of patterns.
+    filters.forEach(filter => {
+        let found = false
+
+        candidates.forEach(candidate => {
+            if (filter.match(candidate)) {
+                found = true
+                taskSet.add(
+                    swapColonAndSlash(candidate) + filter.args,
+                    filter.task
+                )
+            }
+        })
+
+        // Built-in tasks should be allowed.
+        if (!found &amp;&amp; (filter.task === "restart" || filter.task === "env")) {
+            taskSet.add(filter.task + filter.args, filter.task)
+            found = true
+        }
+        if (!found) {
+            unknownSet[filter.task] = true
+        }
+    })
+
+    const unknownTasks = Object.keys(unknownSet)
+    if (unknownTasks.length > 0) {
+        throw new Error(`Task not found: "${unknownTasks.join("\", ")}"`)
+    }
+    return taskSet.result
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-create-header.html">create-header</a></li><li><a href="module-create-prefix-transform-stream.html">create-prefix-transform-stream</a></li><li><a href="module-index.html">index</a></li><li><a href="module-match-tasks.html">match-tasks</a></li><li><a href="module-npm-run-all-error.html">npm-run-all-error</a></li><li><a href="module-read-package-json.html">read-package-json</a></li><li><a href="module-run-task.html">run-task</a></li><li><a href="module-run-tasks-in-parallel.html">run-tasks-in-parallel</a></li><li><a href="module-run-tasks-in-sequencial.html">run-tasks-in-sequencial</a></li><li><a href="module-spawn.html">spawn</a></li><li><a href="module-spawn-posix.html">spawn-posix</a></li><li><a href="module-spawn-win32.html">spawn-win32</a></li></ul><h3>Classes</h3><ul><li><a href="module-match-tasks-TaskSet.html">TaskSet</a></li><li><a href="module-npm-run-all-error.html">npm-run-all-error</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Jul 12 2016 18:08:43 GMT+0900 (東京 (標準時))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

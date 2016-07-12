@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Module: run-task</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Module: run-task</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="~detectStreamKind"><span class="type-signature">(inner) </span>detectStreamKind<span class="signature">(stream, std)</span><span class="type-signature"> &rarr; {string|stream.Readable|stream.Writable}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Converts a given stream to an option for `child_process.spawn`.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>stream</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">stream.Readable</span>
+|
+
+<span class="param-type">stream.Writable</span>
+|
+
+<span class="param-type">null</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An original stream to convert.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>std</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">process.stdin</span>
+|
+
+<span class="param-type">process.stdout</span>
+|
+
+<span class="param-type">process.stderr</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A standard stream for this option.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="run-task.js.html">run-task.js</a>, <a href="run-task.js.html#line55">line 55</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    An option for `child_process.spawn`.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+|
+
+<span class="param-type">stream.Readable</span>
+|
+
+<span class="param-type">stream.Writable</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="~wrapLabeling"><span class="type-signature">(inner) </span>wrapLabeling<span class="signature">(taskName, source, labelState)</span><span class="type-signature"> &rarr; {stream.Writable}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Wraps stdout/stderr with a transform stream to add the task name as prefix.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>taskName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The task name.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>source</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">stream.Writable</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An output stream to be wrapped.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>labelState</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An label state for the transform stream.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="run-task.js.html">run-task.js</a>, <a href="run-task.js.html#line33">line 33</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    `source` or the created wrapped stream.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">stream.Writable</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-create-header.html">create-header</a></li><li><a href="module-create-prefix-transform-stream.html">create-prefix-transform-stream</a></li><li><a href="module-index.html">index</a></li><li><a href="module-match-tasks.html">match-tasks</a></li><li><a href="module-npm-run-all-error.html">npm-run-all-error</a></li><li><a href="module-read-package-json.html">read-package-json</a></li><li><a href="module-run-task.html">run-task</a></li><li><a href="module-run-tasks-in-parallel.html">run-tasks-in-parallel</a></li><li><a href="module-run-tasks-in-sequencial.html">run-tasks-in-sequencial</a></li><li><a href="module-spawn.html">spawn</a></li><li><a href="module-spawn-posix.html">spawn-posix</a></li><li><a href="module-spawn-win32.html">spawn-win32</a></li></ul><h3>Classes</h3><ul><li><a href="module-match-tasks-TaskSet.html">TaskSet</a></li><li><a href="module-npm-run-all-error.html">npm-run-all-error</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Jul 12 2016 18:08:43 GMT+0900 (東京 (標準時))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: module:npm-run-all-error</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: module:npm-run-all-error</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>module:npm-run-all-error</h2>
+        
+            <div class="class-description">Error object with some additional info.</div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="module:npm-run-all-error"><span class="type-signature"></span>new module:npm-run-all-error<span class="signature">(causeResult, allResults)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Constructor.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>causeResult</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The result item of the npm-script which causes an error.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>allResults</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;{name: string, code: (number|undefined)}></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">All result items of npm-scripts.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="npm-run-all-error.js.html">npm-run-all-error.js</a>, <a href="npm-run-all-error.js.html#line16">line 16</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="code"><span class="type-signature"></span>code<span class="type-signature"> :number</span></h4>
+
+
+
+
+<div class="description">
+    The code of a npm-script which exited with a non-zero code.
+This can be `undefined`.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">number</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="npm-run-all-error.js.html">npm-run-all-error.js</a>, <a href="npm-run-all-error.js.html#line39">line 39</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="name"><span class="type-signature"></span>name<span class="type-signature"> :string</span></h4>
+
+
+
+
+<div class="description">
+    The name of a npm-script which exited with a non-zero code.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">string</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="npm-run-all-error.js.html">npm-run-all-error.js</a>, <a href="npm-run-all-error.js.html#line32">line 32</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="results"><span class="type-signature"></span>results<span class="type-signature"> :Array.&lt;{name: string, code: (number|undefined)}></span></h4>
+
+
+
+
+<div class="description">
+    All result items of npm-scripts.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;{name: string, code: (number|undefined)}></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="npm-run-all-error.js.html">npm-run-all-error.js</a>, <a href="npm-run-all-error.js.html#line45">line 45</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-create-header.html">create-header</a></li><li><a href="module-create-prefix-transform-stream.html">create-prefix-transform-stream</a></li><li><a href="module-index.html">index</a></li><li><a href="module-match-tasks.html">match-tasks</a></li><li><a href="module-npm-run-all-error.html">npm-run-all-error</a></li><li><a href="module-read-package-json.html">read-package-json</a></li><li><a href="module-run-task.html">run-task</a></li><li><a href="module-run-tasks-in-parallel.html">run-tasks-in-parallel</a></li><li><a href="module-run-tasks-in-sequencial.html">run-tasks-in-sequencial</a></li><li><a href="module-spawn.html">spawn</a></li><li><a href="module-spawn-posix.html">spawn-posix</a></li><li><a href="module-spawn-win32.html">spawn-win32</a></li></ul><h3>Classes</h3><ul><li><a href="module-match-tasks-TaskSet.html">TaskSet</a></li><li><a href="module-npm-run-all-error.html">npm-run-all-error</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Jul 12 2016 18:08:43 GMT+0900 (東京 (標準時))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: create-prefix-transform-stream.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: create-prefix-transform-stream.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module create-prefix-transform-stream
+ * @author Toru Nagashima
+ * @copyright 2016 Toru Nagashima. All rights reserved.
+ * See LICENSE file in root directory for full license.
+ */
+"use strict"
+
+//------------------------------------------------------------------------------
+// Requirements
+//------------------------------------------------------------------------------
+
+const {Transform} = require("stream")
+
+//------------------------------------------------------------------------------
+// Helpers
+//------------------------------------------------------------------------------
+
+const ALL_BR = /\n/g
+
+/**
+ * The transform stream to insert a specific prefix.
+ *
+ * Several streams can exist for the same output stream.
+ * This stream will insert the prefix if the last output came from other instance.
+ * To do that, this stream is using a shared state object.
+ *
+ * @private
+ */
+class PrefixTransform extends Transform {
+    /**
+     * @param {string} prefix - A prefix text to be inserted.
+     * @param {object} state - A state object.
+     * @param {string} state.lastPrefix - The last prefix which is printed.
+     * @param {boolean} state.lastIsLinebreak -The flag to check whether the last output is a line break or not.
+     */
+    constructor(prefix, state) {
+        super()
+
+        this.prefix = prefix
+        this.state = state
+    }
+
+    /**
+     * Transforms the output chunk.
+     *
+     * @param {string|Buffer} chunk - A chunk to be transformed.
+     * @param {string} encoding - The encoding of the chunk.
+     * @param {function} callback - A callback function that is called when done.
+     * @returns {void}
+     */
+    _transform(chunk, encoding, callback) {
+        const prefix = this.prefix
+        const nPrefix = `\n${prefix}`
+        const state = this.state
+        const firstPrefix =
+            state.lastIsLinebreak ? prefix :
+            (state.lastPrefix !== prefix) ? "\n" :
+            /* otherwise */ ""
+        const prefixed = `${firstPrefix}${chunk}`.replace(ALL_BR, nPrefix)
+        const index = prefixed.indexOf(prefix, Math.max(0, prefixed.length - prefix.length))
+
+        state.lastPrefix = prefix
+        state.lastIsLinebreak = (index !== -1)
+
+        callback(null, (index !== -1) ? prefixed.slice(0, index) : prefixed)
+    }
+}
+
+//------------------------------------------------------------------------------
+// Public API
+//------------------------------------------------------------------------------
+
+/**
+ * Create a transform stream to insert the specific prefix.
+ *
+ * Several streams can exist for the same output stream.
+ * This stream will insert the prefix if the last output came from other instance.
+ * To do that, this stream is using a shared state object.
+ *
+ * @param {string} prefix - A prefix text to be inserted.
+ * @param {object} state - A state object.
+ * @param {string} state.lastPrefix - The last prefix which is printed.
+ * @param {boolean} state.lastIsLinebreak -The flag to check whether the last output is a line break or not.
+ * @returns {stream.Transform} The created transform stream.
+ */
+module.exports = function createPrefixTransform(prefix, state) {
+    return new PrefixTransform(prefix, state)
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-create-header.html">create-header</a></li><li><a href="module-create-prefix-transform-stream.html">create-prefix-transform-stream</a></li><li><a href="module-index.html">index</a></li><li><a href="module-match-tasks.html">match-tasks</a></li><li><a href="module-npm-run-all-error.html">npm-run-all-error</a></li><li><a href="module-read-package-json.html">read-package-json</a></li><li><a href="module-run-task.html">run-task</a></li><li><a href="module-run-tasks-in-parallel.html">run-tasks-in-parallel</a></li><li><a href="module-run-tasks-in-sequencial.html">run-tasks-in-sequencial</a></li><li><a href="module-spawn.html">spawn</a></li><li><a href="module-spawn-posix.html">spawn-posix</a></li><li><a href="module-spawn-win32.html">spawn-win32</a></li></ul><h3>Classes</h3><ul><li><a href="module-match-tasks-TaskSet.html">TaskSet</a></li><li><a href="module-npm-run-all-error.html">npm-run-all-error</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Tue Jul 12 2016 18:08:43 GMT+0900 (東京 (標準時))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
